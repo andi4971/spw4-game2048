@@ -39,6 +39,6 @@ jobs:
       - name: artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: compiled program
+          name: tests
           path: 'target/*'
           retention-days: 5
