@@ -1,0 +1,15 @@
+name: spw4-game2048
+on: [push]
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: build
+        uses: actions/checkout@v3
+        run: mvn compile
+      - name: artifacts
+        uses: actions/upload-artifacts@v3
+        with:
+          name: compiled program
+          path: 'target/*'
+          retention-days: 5
