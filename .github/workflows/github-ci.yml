@@ -63,3 +63,12 @@ jobs:
           name: package
           path: 'target/*'
           retention-days: 5
+  deploy:
+    runs-on: self-hosted
+    needs: package
+    steps:
+      - name: deploy
+        run: |
+           rm -rf /usr/local/tomcat/webapps/game2048.war
+           cp ./target/game2048.war /usr/local/tomcat/webapps/game2048.war
+
