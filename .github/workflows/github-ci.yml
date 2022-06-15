@@ -42,3 +42,24 @@ jobs:
           name: tests
           path: 'target/*'
           retention-days: 5
+  package:
+    runs-on: self-hosted
+    needs: test
+    steps:
+      - name: Cache local Maven repository
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: package
+        run: mvn package
+      - name: artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: package
+          path: 'target/*'
+          retention-days: 5
