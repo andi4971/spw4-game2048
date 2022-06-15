@@ -4,6 +4,13 @@ jobs:
   build:
     runs-on: self-hosted
     steps:
+      - name: Cache local Maven repository #copied from github actions documentation
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - name: checkout
         uses: actions/checkout@v3
       - name: compile
